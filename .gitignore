@@ -44,5 +44,5 @@
 # Backup entities generated with doctrine:generate:entities command
 **/Entity/*~
 
-# idea folder from phpstorm
+# idea folder from php storm
 .idea/
