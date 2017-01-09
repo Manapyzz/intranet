@@ -26,18 +26,40 @@ class DisciplineController extends Controller
      *
      */
     public function createAction(Request $request){
+        $successMessage = '';
 
         $newDiscipline = new Discipline();
         $form = $this->createForm(DisciplineType::class, $newDiscipline);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
+            $disciplineAlreadyExist = $em->getRepository('DisciplineBundle:Discipline')->findAll();
+
+            foreach ($disciplineAlreadyExist as $key){
+               if($key->getName() == $newDiscipline->getName()){
+                   $errorMessage = "Discipline already exist";
+                   return $this->render('DisciplineBundle:Create:create.html.twig',array(
+                       'errorDiscipleAlreadyExist' => $errorMessage,
+                       'discipline' => $newDiscipline,
+                       'form' => $form->createView(),
+                   ));
+               }
+            }
+
             $em->persist($newDiscipline);
             $em->flush($newDiscipline);
+
+            $newDiscipline = new Discipline();
+            $form = $this->createForm(DisciplineType::class, $newDiscipline);
+
+            $successMessage = "Discipline added to the list";
+
             }
 
         return $this->render('DisciplineBundle:Create:create.html.twig',array(
+            'successMessage' => $successMessage,
             'discipline' => $newDiscipline,
             'form' => $form->createView(),
         ));
