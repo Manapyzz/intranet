@@ -1,0 +1,19 @@
+{% block body %}
+<div class="container">
+    <div class="row">
+
+        <h1>Discipline</h1>
+        <table class="table table-sm">
+            <tbody>
+            {% for disciplines in discipline %}
+                <tr>
+                    <th>Name</th>
+                    <td>{{ disciplines.name}}</td>
+                    <a href="{{ path('discipline_delete',{'id': disciplines.id}) }}">[[DELETE]]</a>
+                </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table><br>
+{% endblock %}

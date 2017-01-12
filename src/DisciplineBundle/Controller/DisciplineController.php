@@ -21,7 +21,7 @@ class DisciplineController extends Controller
     }
 
     /**
-     * @Route("/discipline/create")
+     * @Route("/discipline/create", name="discipline_create")
      * @Method({"GET", "POST"})
      *
      */
@@ -62,6 +62,41 @@ class DisciplineController extends Controller
             'successMessage' => $successMessage,
             'discipline' => $newDiscipline,
             'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * Deletes a ticket entity.
+     *
+     * @Route("/discipline/delete/{id}", name="discipline_delete")
+     * @Method({"DELETE","GET"})
+     */
+    public function deleteAction(Discipline $discipline){
+
+        if (!$discipline) {
+            throw $this->createNotFoundException('No sguest found');
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($discipline);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('discipline_show'));
+
+    }
+
+    /**
+     * Finds and displays a ticket entity.
+     *
+     * @Route("/discipline/show", name="discipline_show")
+     * @Method({"GET","POST"})
+     */
+    public function showAction(){
+        $em = $this->getDoctrine()->getManager();
+        $disciplines = $em->getRepository('DisciplineBundle:Discipline')->findAll();
+
+        return $this->render('DisciplineBundle:Show:show.html.twig', array(
+            'discipline' => $disciplines
         ));
     }
 
