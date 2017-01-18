@@ -9,7 +9,8 @@
                 <tr>
                     <th>Name</th>
                     <td>{{ disciplines.name}}</td>
-                    <a href="{{ path('discipline_delete',{'id': disciplines.id}) }}">[[DELETE]]</a>
+                    <td><a href="{{ path('discipline_delete',{'id': disciplines.id}) }}">DELETE</a></td>
+                    <td><a href="{{ path('discipline_edit',{'discipline_id': disciplines.id}) }}">EDIT</a></td>
                 </tr>
             {% endfor %}
 

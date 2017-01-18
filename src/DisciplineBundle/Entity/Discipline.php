@@ -29,24 +29,26 @@ class Discipline
     private $name;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="teacher_id", type="integer", nullable=true)
+     * One Discipline has One Teacher.
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id")
      */
-    private $teacherId;
+    private $teacher;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="student_id", type="integer", nullable=true)
+     * Many Students have Many Disciplines.
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User")
+     * @ORM\JoinTable(name="students_disciplines",
+     *      joinColumns={@ORM\JoinColumn(name="student_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="discipline_id", referencedColumnName="id")}
+     *      )
      */
-    private $studentId;
-
+    private $students;
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -78,51 +80,67 @@ class Discipline
     }
 
     /**
-     * Set teacherId
+     * Set teacher
      *
-     * @param integer $teacherId
+     * @param \UserBundle\Entity\User $teacher
      *
      * @return Discipline
      */
-    public function setTeacherId($teacherId)
+    public function setTeacher(\UserBundle\Entity\User $teacher = null)
     {
-        $this->teacherId = $teacherId;
+        $this->teacher = $teacher;
 
         return $this;
     }
 
     /**
-     * Get teacherId
+     * Get teacher
      *
-     * @return int
+     * @return \UserBundle\Entity\User
      */
-    public function getTeacherId()
+    public function getTeacher()
     {
-        return $this->teacherId;
+        return $this->teacher;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Set studentId
+     * Add student
      *
-     * @param integer $studentId
+     * @param \UserBundle\Entity\User $student
      *
      * @return Discipline
      */
-    public function setStudentId($studentId)
+    public function addStudent(\UserBundle\Entity\User $student)
     {
-        $this->studentId = $studentId;
+        $this->students[] = $student;
 
         return $this;
     }
 
     /**
-     * Get studentId
+     * Remove student
      *
-     * @return int
+     * @param \UserBundle\Entity\User $student
      */
-    public function getStudentId()
+    public function removeStudent(\UserBundle\Entity\User $student)
     {
-        return $this->studentId;
+        $this->students->removeElement($student);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }
-
