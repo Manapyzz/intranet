@@ -29,8 +29,8 @@ class Discipline
     private $name;
 
     /**
-     * One Discipline has One Teacher.
-     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User")
+     * Many Disciplines have One Teacher 
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="teacherDiscipline")
      * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id")
      */
     private $teacher;
