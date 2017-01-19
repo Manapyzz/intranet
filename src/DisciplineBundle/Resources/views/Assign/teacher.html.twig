@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+
+<input type="submit" value="Assign"
+       class="btn btn-default pull-right" />
+{{ form_end(form) }}
+
+{% if app.session.flashBag.has('assignSuccess') %}
+    <div>
+        {% for msg in app.session.flashBag.get('assignSuccess') %}
+            {{ msg }}
+        {% endfor %}
+    </div>
+{% endif %}

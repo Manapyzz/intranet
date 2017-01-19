@@ -3,6 +3,7 @@
 namespace DisciplineBundle\Controller;
 
 use DisciplineBundle\Entity\Discipline;
+use DisciplineBundle\Form\DisciplineTeacherType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -151,6 +152,36 @@ class DisciplineController extends Controller
         return $this->render('DisciplineBundle:Edit:edit.html.twig',array(
             'discipline' => $discipline,
             'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/discipline/assign/teacher", name="discipline_assign_teacher")
+     * @Method({"GET", "POST"})
+     *
+     */
+    public function assignDisciplineToTeacherAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $allDiscipline = $em->getRepository('DisciplineBundle:Discipline')->findAll();
+        $form = $this->createForm(DisciplineTeacherType::class, $allDiscipline);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $discipline = $form["name"]->getData();
+            $teacher = $form["email"]->getData();
+            $discipline->setTeacher($teacher);
+
+            $em->persist($discipline);
+            $em->flush($discipline);
+
+            $request->getSession()
+                ->getFlashBag()
+                ->add('assignSuccess', 'The teacher '.$discipline->getTeacher()->getUsername().' has been assign to '.$discipline->getName().'.');
+            ;
+        }
+
+        return $this->render('DisciplineBundle:Assign:teacher.html.twig',array(
+            'form' => $form->createView()
         ));
     }
 }
