@@ -185,7 +185,7 @@ class DisciplineController extends Controller
             'form' => $form->createView()
         ));
     }
-    
+
     /**
      * @Route("/discipline/signin/", name="discipline_signin")
      * @Method({"GET", "POST"})
