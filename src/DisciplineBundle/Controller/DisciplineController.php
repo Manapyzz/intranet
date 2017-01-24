@@ -196,7 +196,31 @@ class DisciplineController extends Controller
         $em = $this -> getDoctrine() -> getManager();
         $discipline = $em -> getRepository('DisciplineBundle:Discipline')->findAll();
         $form = $this->createForm(StudentDisciplineType::class,$discipline);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $data = $form->getData();
+
+            $disciplineChoose = $em ->getRepository('DisciplineBundle:Discipline')->findOneByName($data["name"]->getName());
+            $userAlreadySign = $disciplineChoose->getStudents();
+            $userExist = false;
+            foreach ($userAlreadySign as $value){
+                if($user->getId() != $value->getId()){
+                    $userExist = true;
+                }
+            }
+
+            if ($userExist){
+                $disciplineChoose->addStudent($user);
+            }else{
+                $request->getSession()
+                    ->getFlashBag()
+                    ->add('alreadyExist', 'Already SignIn to this Discipline !');
+            }
+            $em->persist($disciplineChoose);
+            $em->flush();
+        }
         return $this->render('DisciplineBundle:SignIn:student.html.twig',array(
             'discipline' => $discipline,
             'form' => $form->createView()
