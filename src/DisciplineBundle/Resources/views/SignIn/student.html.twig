@@ -1,7 +1,15 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-{{ form_label(form.name, 'Your name') }}
 
-<input type="submit" value="Create"
+<input type="submit" value="SignUp"
        class="btn btn-default pull-right" />
 {{ form_end(form) }}
+
+
+{% if app.session.flashBag.has('alreadyExist') %}
+    <div>
+        {% for msg in app.session.flashBag.get('alreadyExist') %}
+            {{ msg }}
+        {% endfor %}
+    </div>
+{% endif %}
