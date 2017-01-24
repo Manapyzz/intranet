@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use DisciplineBundle\Form\DisciplineType;
+use DisciplineBundle\Form\StudentDisciplineType;
 
 class DisciplineController extends Controller
 {
@@ -149,6 +150,23 @@ class DisciplineController extends Controller
         }
 
         return $this->render('DisciplineBundle:Edit:edit.html.twig',array(
+            'discipline' => $discipline,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/discipline/signin/", name="discipline_signin")
+     * @Method({"GET", "POST"})
+     *
+     */
+    public function studentSignInToDiscipline(Request $request){
+
+        $em = $this -> getDoctrine() -> getManager();
+        $discipline = $em -> getRepository('DisciplineBundle:Discipline')->findAll();
+        $form = $this->createForm(StudentDisciplineType::class,$discipline);
+
+        return $this->render('DisciplineBundle:SignIn:student.html.twig',array(
             'discipline' => $discipline,
             'form' => $form->createView(),
         ));
