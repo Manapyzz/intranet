@@ -206,13 +206,16 @@ class DisciplineController extends Controller
             $userAlreadySign = $disciplineChoose->getStudents();
             $userExist = false;
             foreach ($userAlreadySign as $value){
-                if($user->getId() != $value->getId()){
+                if($user->getId() == $value->getId()){
                     $userExist = true;
                 }
             }
 
-            if ($userExist){
+            if (!$userExist){
                 $disciplineChoose->addStudent($user);
+                $request->getSession()
+                    ->getFlashBag()
+                    ->add('signUp', 'You have signUp to '.$disciplineChoose->getName());
             }else{
                 $request->getSession()
                     ->getFlashBag()

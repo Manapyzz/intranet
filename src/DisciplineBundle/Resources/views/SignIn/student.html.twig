@@ -13,3 +13,11 @@
         {% endfor %}
     </div>
 {% endif %}
+
+{% if app.session.flashBag.has('signUp') %}
+    <div>
+        {% for msg in app.session.flashBag.get('signUp') %}
+            {{ msg }}
+        {% endfor %}
+    </div>
+{% endif %}
