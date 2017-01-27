@@ -39,8 +39,8 @@ class Discipline
      * Many Students have Many Disciplines.
      * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinTable(name="students_disciplines",
-     *      joinColumns={@ORM\JoinColumn(name="student_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="discipline_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="discipline_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="student_id", referencedColumnName="id")}
      *      )
      */
     private $students;
