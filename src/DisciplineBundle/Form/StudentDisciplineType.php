@@ -18,10 +18,17 @@ class StudentDisciplineType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-
         $builder->add('name', EntityType::class, array(
             'class' => 'DisciplineBundle:Discipline',
-            'label' => "Discipline",
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('u')
+                    ->select('m')
+                    ->from('DisciplineBundle\Entity\Discipline','m')
+                    ->leftJoin('m.students','c')
+                    ->having('COUNT(c.id) = 0')
+                    ->groupBy('m.id');
+
+            },
             'choice_label' => 'name',
         ));
     }

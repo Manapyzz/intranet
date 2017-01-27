@@ -164,13 +164,13 @@ class DisciplineController extends Controller
 
         $em = $this -> getDoctrine() -> getManager();
         $discipline = $em -> getRepository('DisciplineBundle:Discipline')->findAll();
+
         $form = $this->createForm(StudentDisciplineType::class,$discipline);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
             $data = $form->getData();
-
             $disciplineChoose = $em ->getRepository('DisciplineBundle:Discipline')->findOneByName($data["name"]->getName());
             $userAlreadySign = $disciplineChoose->getStudents();
             $userExist = false;
