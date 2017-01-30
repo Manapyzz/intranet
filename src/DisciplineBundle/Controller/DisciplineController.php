@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use DisciplineBundle\Form\DisciplineType;
+use DisciplineBundle\Form\StudentDisciplineType;
 
 class DisciplineController extends Controller
 {
@@ -160,7 +161,8 @@ class DisciplineController extends Controller
      * @Method({"GET", "POST"})
      *
      */
-    public function assignDisciplineToTeacherAction(Request $request){
+    public function assignDisciplineToTeacherAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $allDiscipline = $em->getRepository('DisciplineBundle:Discipline')->findAll();
         $form = $this->createForm(DisciplineTeacherType::class, $allDiscipline);
@@ -176,11 +178,27 @@ class DisciplineController extends Controller
 
             $request->getSession()
                 ->getFlashBag()
-                ->add('assignSuccess', 'The teacher '.$discipline->getTeacher()->getUsername().' has been assign to '.$discipline->getName().'.');
-            ;
+                ->add('assignSuccess', 'The teacher ' . $discipline->getTeacher()->getUsername() . ' has been assign to ' . $discipline->getName() . '.');;
         }
 
-        return $this->render('DisciplineBundle:Assign:teacher.html.twig',array(
+        return $this->render('DisciplineBundle:Assign:teacher.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+    
+    /**
+     * @Route("/discipline/signin/", name="discipline_signin")
+     * @Method({"GET", "POST"})
+     *
+     */
+    public function studentSignInToDiscipline(Request $request){
+
+        $em = $this -> getDoctrine() -> getManager();
+        $discipline = $em -> getRepository('DisciplineBundle:Discipline')->findAll();
+        $form = $this->createForm(StudentDisciplineType::class,$discipline);
+
+        return $this->render('DisciplineBundle:SignIn:student.html.twig',array(
+            'discipline' => $discipline,
             'form' => $form->createView()
         ));
     }
