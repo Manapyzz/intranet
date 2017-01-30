@@ -226,7 +226,7 @@ class DisciplineController extends Controller
         }
         return $this->render('DisciplineBundle:SignIn:student.html.twig',array(
             'discipline' => $discipline,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ));
     }
 }
