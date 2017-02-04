@@ -1,6 +1,19 @@
+{% extends 'base.html.twig' %}
 {% block body %}
-<button><a href="{{ path('discipline_show') }}">All Disciplines</a></button>
-<button><a href="{{ path('discipline_student') }}">My Disciplines</a></button>
+{% if app.user %}
+ <!-- RAJOUTER CONDITIONS POUR DISPLAY PROF/ADMIN/STUDENT-->
+    <a href="{{ path('fos_user_security_logout') }}"><button>Logout</button></a>
+    <a href="{{ path('discipline_show') }}"><button>All Disciplines</button></a>
+    <a href="{{ path('discipline_student') }}"><button>My Disciplines</button></a>
 <button>My Grades</button>
 <button>Average</button>
+
+    <p>TEACHER PART</p>
+
+    <a href="{{ path('discipline_teacher') }}"><button>All Disciplines Teacher</button></a>
+
+{% elseif not app.user %}
+    <a href="{{ path('fos_user_security_login') }}"><button>Login</button></a>
+    <a href="{{ path('fos_user_registration_register') }}"><button>Register</button></a>
+{% endif %}
 {% endblock %}

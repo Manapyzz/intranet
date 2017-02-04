@@ -19,6 +19,7 @@ class DisciplineController extends Controller
      */
     public function indexAction()
     {
+
         return $this->render('DisciplineBundle:Default:index.html.twig');
     }
 
@@ -241,6 +242,33 @@ class DisciplineController extends Controller
 
         return $this->render('DisciplineBundle:Show:showStudentDisciplines.html.twig',array(
             'discipline' => $discipline
+        ));
+    }
+
+    /**
+     *
+     * @Route("/discipline/teacher", name="discipline_teacher")
+     *
+     */
+    public function teacherConsultOwnDiscipline(){
+        $em = $this -> getDoctrine() -> getManager();
+        $discipline = $em -> getRepository('DisciplineBundle:Discipline')->getTeacherDiscipline($this->getUser()->getId());
+
+        return $this->render('DisciplineBundle:Show:showTeacherDisciplines.html.twig',array(
+            'discipline' => $discipline
+        ));
+    }
+
+    /**
+     *
+     * @Route("/discipline/{id}/teacher/student", name="show_discipline_student")
+     * @Method("GET")
+     */
+    public function teacherConsultOwnDisciplineStudent($id){
+        $em = $this -> getDoctrine() -> getManager();
+        $disciplineStudent = $em -> getRepository('DisciplineBundle:Discipline')->getTeacherDisciplineStudent($id);
+        return $this->render('DisciplineBundle:Show:showDisciplineStudent.html.twig',array(
+            'disciplineStudent' => $disciplineStudent
         ));
     }
 }
