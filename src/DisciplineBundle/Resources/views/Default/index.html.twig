@@ -1,1 +1,6 @@
-Hello World!
+{% block body %}
+<button><a href="{{ path('discipline_show') }}">All Disciplines</a></button>
+<button><a href="{{ path('discipline_student') }}">My Disciplines</a></button>
+<button>My Grades</button>
+<button>Average</button>
+{% endblock %}
