@@ -3,17 +3,16 @@
     <div class="container">
     <div class="row">
 
-    <h1>Discipline</h1>
+    <h1>Disciplines</h1>
     <table class="table table-sm">
         <tbody>
         {% for disciplines in discipline %}
             <tr>
                 <th>Name</th>
                 <td>{{ disciplines.name}}</td>
-               </tr>
+                <td><a href="{{ path('show_discipline_student',{'id': disciplines.id})}}">Show Students</a></td>
+            </tr>
         {% endfor %}
-
-
         </tbody>
     </table><br>
 {% endblock %}

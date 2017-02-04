@@ -3,14 +3,14 @@
     <div class="container">
     <div class="row">
 
-    <h1>Discipline</h1>
+    <h1>Discipline : </h1>
     <table class="table table-sm">
         <tbody>
-        {% for disciplines in discipline %}
+        {% for users in disciplineStudent %}
             <tr>
-                <th>Name</th>
-                <td>{{ disciplines.name}}</td>
-               </tr>
+                <th>FirstName</th>
+                <td>{{ users.username}}</td>
+             </tr>
         {% endfor %}
 
 
