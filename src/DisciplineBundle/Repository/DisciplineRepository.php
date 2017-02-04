@@ -46,8 +46,4 @@ WHERE students_disciplines.discipline_id = :id';
         return $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchAll();
     }
 
-    ///SELECT * FROM `fos_user` LEFT JOIN
-    // students_disciplines ON
-    // students_disciplines.student_id = fos_user.id WHERE
-    // students_disciplines.discipline_id = 4
 }

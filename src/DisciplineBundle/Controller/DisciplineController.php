@@ -261,7 +261,7 @@ class DisciplineController extends Controller
 
     /**
      *
-     * @Route("/discipline/{id}/teacher/student", name="show_discipline_student")
+     * @Route("/discipline/teacher/student/{id}", name="show_discipline_student")
      * @Method("GET")
      */
     public function teacherConsultOwnDisciplineStudent($id){
@@ -271,4 +271,5 @@ class DisciplineController extends Controller
             'disciplineStudent' => $disciplineStudent
         ));
     }
+    
 }

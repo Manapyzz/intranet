@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+    <div class="row">
+
+    <h1>Students</h1>
+    <table class="table table-sm">
+        <tbody>
+        {% for user in userByRole %}
+            <tr>
+                <th>Name</th>
+                <td>{{ user.username}}</td>
+                <td><a href="{{ path('admin_discipline_student',{'id': user.id}) }}">show Disciplines</a></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table><br>
+{% endblock %}
