@@ -10,4 +10,16 @@ namespace DisciplineBundle\Repository;
  */
 class DisciplineRepository extends \Doctrine\ORM\EntityRepository
 {
+    function getStudentDiscipline($id){
+        $qb = $this->createQueryBuilder('d')
+            ->select('d.name')
+            ->leftJoin('d.students','sd')
+            ->where('sd = :id')
+            ->setParameter('id',$id);
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
 }

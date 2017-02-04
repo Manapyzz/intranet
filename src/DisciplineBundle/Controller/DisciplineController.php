@@ -15,7 +15,7 @@ use DisciplineBundle\Form\StudentDisciplineType;
 class DisciplineController extends Controller
 {
     /**
-     * @Route("/discipline")
+     * @Route("/")
      */
     public function indexAction()
     {
@@ -227,6 +227,20 @@ class DisciplineController extends Controller
         return $this->render('DisciplineBundle:SignIn:student.html.twig',array(
             'discipline' => $discipline,
             'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     *
+     * @Route("/discipline/student", name="discipline_student")
+     *
+     */
+    public function studentConsultOwnDiscipline(){
+        $em = $this -> getDoctrine() -> getManager();
+        $discipline = $em -> getRepository('DisciplineBundle:Discipline')->getStudentDiscipline($this->getUser()->getId());
+
+        return $this->render('DisciplineBundle:Show:showStudentDisciplines.html.twig',array(
+            'discipline' => $discipline
         ));
     }
 }
