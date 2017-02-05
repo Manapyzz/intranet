@@ -10,7 +10,9 @@
             <tr>
                 <th>Name</th>
                 <td>{{ discipline.name}}</td>
-             </tr>
+                <td><a href="{{ path('admin_discipline_delete_teacher',{'id':app.request.get('id'),'discipline_id': discipline.id}) }}">DELETE</a></td>
+
+            </tr>
         {% endfor %}
         </tbody>
     </table><br>

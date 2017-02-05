@@ -12,6 +12,7 @@
                     <td>{{ disciplines.name}}</td>
                     <td><a href="{{ path('discipline_delete',{'id': disciplines.id}) }}">DELETE</a></td>
                     <td><a href="{{ path('discipline_edit',{'discipline_id': disciplines.id}) }}">EDIT</a></td>
+                    <td><a href="{{ path('show_discipline_student',{'id': disciplines.id}) }}">Show students</a></td>
                 </tr>
             {% endfor %}
 

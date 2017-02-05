@@ -4,6 +4,7 @@ namespace AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use DisciplineBundle\Entity\Discipline;
 
 class AdminController extends Controller
 {
@@ -76,5 +77,40 @@ class AdminController extends Controller
         return $this->render('AdminBundle:Show:adminDisciplineTeacher.html.twig',array(
             'disciplineTeacher' => $disciplineTeacher
         ));
+    }
+
+    /**
+     *
+     * @Route("/admin/board/students/show/{id}/delete/{discipline_id}", name="admin_discipline_delete")
+     */
+    public function deleteStudentDisciplineAction($id,$discipline_id){
+
+        $em = $this->getDoctrine()->getManager();
+       $em -> getRepository('DisciplineBundle:Discipline')->removeStudentDiscipline($id,$discipline_id);
+
+        return $this->redirect($this->generateUrl('admin_discipline_student',array('id' => $id)));
+
+    }
+
+    /**
+     *
+     * @Route("/admin/board/teachers/show/{id}/delete/{discipline_id}", name="admin_discipline_delete_teacher")
+     */
+    public function deleteTeacherDisciplineAction($id,$discipline_id){
+
+        $em = $this->getDoctrine()->getManager();
+       $disciplineRemove =  $em -> getRepository('DisciplineBundle:Discipline')->find($discipline_id);
+
+        if (!$disciplineRemove) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$disciplineRemove
+            );
+        }
+
+        $disciplineRemove->setTeacher(null);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('admin_discipline_teacher',array('id' => $id)));
+
     }
 }

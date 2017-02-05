@@ -76,7 +76,6 @@ class DisciplineController extends Controller
     }
 
     /**
-     * Deletes a ticket entity.
      *
      * @Route("/discipline/delete/{id}", name="discipline_delete")
      * @Method({"DELETE","GET"})
@@ -96,7 +95,6 @@ class DisciplineController extends Controller
     }
 
     /**
-     * Finds and displays a ticket entity.
      *
      * @Route("/discipline/show", name="discipline_show")
      * @Method({"GET","POST"})
@@ -271,5 +269,5 @@ class DisciplineController extends Controller
             'disciplineStudent' => $disciplineStudent
         ));
     }
-    
+
 }
