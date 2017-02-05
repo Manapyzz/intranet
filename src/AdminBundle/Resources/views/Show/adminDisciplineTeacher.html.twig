@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+    <div class="row">
+
+    <h1>Discipline : </h1>
+    <table class="table table-sm">
+        <tbody>
+        {% for discipline in disciplineTeacher %}
+            <tr>
+                <th>Name</th>
+                <td>{{ discipline.name}}</td>
+                <td><a href="{{ path('admin_discipline_delete_teacher',{'id':app.request.get('id'),'discipline_id': discipline.id}) }}">DELETE</a></td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table><br>
+{% endblock %}
