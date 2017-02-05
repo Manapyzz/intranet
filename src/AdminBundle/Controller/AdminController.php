@@ -2,9 +2,14 @@
 
 namespace AdminBundle\Controller;
 
+use DisciplineBundle\DisciplineBundle;
+use DisciplineBundle\Form\StudentDisciplineType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use DisciplineBundle\Entity\Discipline;
+use DisciplineBundle\Form\DisciplineTeacherType;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 
 class AdminController extends Controller
 {
@@ -17,7 +22,6 @@ class AdminController extends Controller
         return $this->render('AdminBundle:Index:index.html.twig'
         );
     }
-
 
     /**
      *
@@ -43,12 +47,12 @@ class AdminController extends Controller
     public function showStudentDisciplineAction($id){
         $em = $this -> getDoctrine() -> getManager();
         $disciplineStudent = $em -> getRepository('DisciplineBundle:Discipline')->getStudentDiscipline($id);
+        $user  = $em->getRepository('UserBundle:User')->findOneById($id);
     return $this->render('AdminBundle:Show:adminDisciplineStudent.html.twig',array(
-            'disciplineStudent' => $disciplineStudent
+            'disciplineStudent' => $disciplineStudent,
+            'user' => $user
         ));
     }
-
-
 
     /**
      *
