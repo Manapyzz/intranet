@@ -58,4 +58,13 @@ class DisciplineRepository extends \Doctrine\ORM\EntityRepository
         return $this->getEntityManager()->getConnection()->executeQuery($sql, $params)->fetchAll();
     }
 
+    function test() {
+        $em = $this->getEntityManager();
+        $dql = 'SELECT * FROM `fos_user`
+                LEFT JOIN students_disciplines ON students_disciplines.student_id = fos_user.id 
+                WHERE students_disciplines.discipline_id = 16';
+        return $query = $em->createQueryBuilder($dql);
+    }
 }
+
+

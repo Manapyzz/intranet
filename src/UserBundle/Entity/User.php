@@ -65,4 +65,38 @@ class User extends BaseUser
     {
         return $this->teacherDiscipline;
     }
+
+    /**
+     * Add studentDiscipline
+     *
+     * @param \DisciplineBundle\Entity\Discipline $studentDiscipline
+     *
+     * @return User
+     */
+    public function addStudentDiscipline(\DisciplineBundle\Entity\Discipline $studentDiscipline)
+    {
+        $this->studentDiscipline[] = $studentDiscipline;
+
+        return $this;
+    }
+
+    /**
+     * Remove studentDiscipline
+     *
+     * @param \DisciplineBundle\Entity\Discipline $studentDiscipline
+     */
+    public function removeStudentDiscipline(\DisciplineBundle\Entity\Discipline $studentDiscipline)
+    {
+        $this->studentDiscipline->removeElement($studentDiscipline);
+    }
+
+    /**
+     * Get studentDiscipline
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudentDiscipline()
+    {
+        return $this->studentDiscipline;
+    }
 }

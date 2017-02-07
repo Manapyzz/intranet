@@ -10,4 +10,13 @@ namespace MarksBundle\Repository;
  */
 class MarkRepository extends \Doctrine\ORM\EntityRepository
 {
+    function getAllStudentsFromDiscipline($discipline_id) {
+        $qb = $this->createQueryBuilder('m')
+            ->select('m.student')
+            ->where('m.disciplineId = 16');
+
+        $query = $qb->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
 }
