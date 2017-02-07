@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <br>
+    <input type="button" value="Go Back" onclick="history.back(-1)"  class="btn btn-default" />
+    <br>
+
+    {#<h1>Grades for {{ student.username }} in {{ discipline.name }}:</h1>#}
+    <div class="col-lg-2">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <input type="submit" value="Edit"
+               class="btn btn-default pull-right" />
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

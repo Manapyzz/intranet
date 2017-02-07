@@ -18,4 +18,11 @@
         {% endfor %}
         </tbody>
     </table><br>
+    {% if app.session.flashBag.has('success') %}
+        <div class="col-lg-2 alert-success bagSuccess">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}

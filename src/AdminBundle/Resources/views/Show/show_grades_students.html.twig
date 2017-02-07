@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <br>
+    <input type="button" value="Go Back" onclick="history.back(-1)"  class="btn btn-default" />
+    <br>
+    <h2>Grades of {{ student.username }}</h2>
+    <h3>Average: {{ average }} </h3>
+    <table class="table table-sm">
+        <tbody>
+        <th>Project</th>
+        <th>Discipline</th>
+        <th>Grade</th>
+        <th>Comment</th>
+        <th>Teacher</th>
+        {% for mark in marks %}
+            <tr>
+                <td>{{ mark.project.name }}</td>
+                <td>{{ mark.discipline.name }}</td>
+                <td>{{ mark.mark }}</td>
+                <td>{{ mark.comment }}</td>
+                <td>{{ mark.discipline.teacher.username }}</td>
+                <td><a href="{{ path("edit_grade", {'grade_id': mark.id}) }}">Edit Grade</a></td>
+                <td><a href="{{ path("delete_grade", {'grade_id': mark.id}) }}">Delete Grade</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table><br>
+
+{% endblock %}

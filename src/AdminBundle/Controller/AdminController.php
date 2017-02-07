@@ -4,6 +4,7 @@ namespace AdminBundle\Controller;
 
 use DisciplineBundle\DisciplineBundle;
 use DisciplineBundle\Form\StudentDisciplineType;
+use MarksBundle\Form\MarkType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use DisciplineBundle\Entity\Discipline;
@@ -116,5 +117,89 @@ class AdminController extends Controller
 
         return $this->redirect($this->generateUrl('admin_discipline_teacher',array('id' => $id)));
 
+    }
+
+    /**
+     * @Route("admin/grade/student/{student_id}}", name="admin_discipline_student_grades")
+     */
+    public function showAllGradesStudent($student_id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $marks = $em->getRepository('MarksBundle:Mark')->getStudentMarks($student_id);
+        $student = $em->getRepository('UserBundle:User')->findOneById($student_id);
+
+        if(count($marks) != 0) {
+            $additionMarks = 0;
+            $diviser = 0;
+
+
+            foreach($marks as $mark) {
+                $additionMarks = $additionMarks + $mark->getMark();
+                $diviser++;
+            }
+
+            $average = $additionMarks / $diviser;
+        } else {
+            $average = "No grades for now";
+        }
+
+        return $this->render('AdminBundle:Show:show_grades_students.html.twig', array(
+            'marks' => $marks,
+            'student' => $student,
+            'average' => $average
+
+        ));
+    }
+
+    /**
+ * @Route("/marks/edit/{grade_id}", name="edit_grade")
+ */
+    public function editGradeStudent($grade_id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $existingGrade = $em->getRepository('MarksBundle:Mark')->findOneById($grade_id);
+
+        if(!is_null($existingGrade)) {
+            $form = $this->createForm(MarkType::class, $existingGrade);
+        }
+
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Grades Edited')
+            ;
+
+            $em->persist($existingGrade);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_board');
+        }
+
+        return $this->render('AdminBundle:Show:editGrades.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/marks/delete/{grade_id}", name="delete_grade")
+     */
+    public function deleteGradeStudent($grade_id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $existingGrade = $em->getRepository('MarksBundle:Mark')->findOneById($grade_id);
+
+        if(!is_null($existingGrade)) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Grades Deleted')
+            ;
+
+            $em->remove($existingGrade);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_board');
+        }
     }
 }
