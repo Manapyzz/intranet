@@ -22,11 +22,24 @@ class Mark
     private $id;
 
     /**
+     * Many Marks have One Project.
+     * @ORM\ManyToOne(targetEntity="ProjectBundle\Entity\Project", inversedBy="marks")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     */
+    private $project;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="mark", type="integer")
      */
     private $mark;
+
+    /**
+     * @var text
+     *
+     *
+     */
 
     /**
      * Many Marks have One Student.
@@ -41,6 +54,13 @@ class Mark
      * @ORM\JoinColumn(name="discipline_id", referencedColumnName="id")
      */
     private $discipline;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comment", type="string", length=600)
+     */
+    private $comment;
 
     /**
      * Get id
@@ -74,6 +94,54 @@ class Mark
     public function getMark()
     {
         return $this->mark;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     *
+     * @return Mark
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Set project
+     *
+     * @param \ProjectBundle\Entity\Project $project
+     *
+     * @return Mark
+     */
+    public function setProject(\ProjectBundle\Entity\Project $project = null)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * Get project
+     *
+     * @return \ProjectBundle\Entity\Project
+     */
+    public function getProject()
+    {
+        return $this->project;
     }
 
     /**

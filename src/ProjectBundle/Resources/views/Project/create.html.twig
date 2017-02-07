@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1>Create Projects for {{ discipline.name }}</h1>
+<div class="col-lg-2">
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <input type="submit" value="Create"
+           class="btn btn-default pull-right" />
+    {{ form_end(form) }}
+</div>
+{% endblock %}

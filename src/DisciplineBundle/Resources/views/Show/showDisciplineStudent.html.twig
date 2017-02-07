@@ -12,7 +12,9 @@
             <tr>
                 <th>Name</th>
                 <td>{{ users.username}}</td>
-             </tr>
+                <td><a href="{{ path('marks_create',{'discipline_id': discipline.id, 'student_id': users.id })}}">Add Grade</a></td>
+                <td><a href="{{ path('marks_show',{'discipline_id': discipline.id, 'student_id': users.id })}}">Show Grades</a></td>
+            </tr>
         {% endfor %}
         </tbody>
     </table><br>

@@ -3,11 +3,12 @@
 {% if app.user %}
  <!-- RAJOUTER CONDITIONS POUR DISPLAY PROF/ADMIN/STUDENT-->
     <a href="{{ path('fos_user_security_logout') }}"><button>Logout</button></a>
+    {% if is_granted('ROLE_ADMIN') != true %}
     <a href="{{ path('discipline_show') }}"><button>All Disciplines</button></a>
+    {% endif %}
     {% if is_granted('ROLE_ADMIN') != true %}
     <a href="{{ path('discipline_student') }}"><button>My Disciplines</button></a>
-    <button>My Grades</button>
-    <button>Average</button>
+    <a href="{{ path('grades_student') }}"><button>My Grades</button></a>
     {% endif %}
 
     {% if is_granted('ROLE_ADMIN') %}
@@ -23,4 +24,13 @@
     <a href="{{ path('fos_user_security_login') }}"><button>Login</button></a>
     <a href="{{ path('fos_user_registration_register') }}"><button>Register</button></a>
 {% endif %}
+
+    {% if app.session.flashBag.has('success') %}
+        <div class="col-lg-2 alert-success bagSuccess">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
+

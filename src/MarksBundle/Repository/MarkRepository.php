@@ -10,4 +10,41 @@ namespace MarksBundle\Repository;
  */
 class MarkRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    function getAllStudentMarksByDisciplineAndId($discipline_id, $student_id) {
+        $qb = $this->createQueryBuilder('m')
+            ->select('m')
+            ->where('m.discipline = :discipline_id')
+            ->andWhere('m.student = :student_id')
+            ->setParameter('discipline_id', $discipline_id)
+            ->setParameter('student_id', $student_id);
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
+    function getStudentMarks($student_id) {
+        $qb = $this->createQueryBuilder('m')
+            ->select('m')
+            ->andWhere('m.student = :student_id')
+            ->setParameter('student_id', $student_id);
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
+    function getJustStudentMarksByDiscipline($discipline_id, $student_id) {
+        $qb = $this->createQueryBuilder('m')
+            ->select('m.mark')
+            ->andWhere('m.discipline = :discipline_id')
+            ->andWhere('m.student = :student_id')
+            ->setParameter('student_id', $student_id)
+            ->setParameter('discipline_id', $discipline_id);
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
 }

@@ -17,7 +17,6 @@ class StudentDisciplineType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder->add('name', EntityType::class, array(
             'class' => 'DisciplineBundle:Discipline',
             'choice_label' => 'name',
