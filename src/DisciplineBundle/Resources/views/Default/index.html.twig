@@ -4,14 +4,21 @@
  <!-- RAJOUTER CONDITIONS POUR DISPLAY PROF/ADMIN/STUDENT-->
     <a href="{{ path('fos_user_security_logout') }}"><button>Logout</button></a>
     <a href="{{ path('discipline_show') }}"><button>All Disciplines</button></a>
+    {% if is_granted('ROLE_ADMIN') != true %}
     <a href="{{ path('discipline_student') }}"><button>My Disciplines</button></a>
-<button>My Grades</button>
-<button>Average</button>
+    <button>My Grades</button>
+    <button>Average</button>
+    {% endif %}
 
-    <p>TEACHER PART</p>
+    {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_SUPER_ADMIN') == false %}
+    <a href="{{ path('discipline_teacher') }}"><button>My Disciplines</button></a>
+    {% endif %}
+    {% endif %}
 
-    <a href="{{ path('discipline_teacher') }}"><button>All Disciplines Teacher</button></a>
-
+    {% if is_granted('ROLE_SUPER_ADMIN') == true %}
+        <a href="{{ path('admin_board') }}"><button>Admin Board</button></a>
+    {% endif %}
 {% elseif not app.user %}
     <a href="{{ path('fos_user_security_login') }}"><button>Login</button></a>
     <a href="{{ path('fos_user_registration_register') }}"><button>Register</button></a>

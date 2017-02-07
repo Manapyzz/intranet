@@ -21,6 +21,7 @@ class StudentDisciplineType extends AbstractType
         $builder->add('name', EntityType::class, array(
             'class' => 'DisciplineBundle:Discipline',
             'choice_label' => 'name',
+            'label' => 'Discipline :'
         ));
     }
     /**

@@ -2,13 +2,16 @@
 {% block body %}
     <div class="container">
     <div class="row">
-
+    <br>
+    <input type="button" value="Go Back" onclick="history.back(-1)"  class="btn btn-default" />
+    <br>
     <h1>Discipline</h1>
+    <a href="{{ path('discipline_signin') }}"><button class="btn btn-default">SignIn</button></a><br><br>
     <table class="table table-sm">
         <tbody>
+        <th>Discipline Name</th>
         {% for disciplines in discipline %}
             <tr>
-                <th>Name</th>
                 <td>{{ disciplines.name}}</td>
                </tr>
         {% endfor %}
