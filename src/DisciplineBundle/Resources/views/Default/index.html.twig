@@ -3,7 +3,9 @@
 {% if app.user %}
  <!-- RAJOUTER CONDITIONS POUR DISPLAY PROF/ADMIN/STUDENT-->
     <a href="{{ path('fos_user_security_logout') }}"><button>Logout</button></a>
+    {% if is_granted('ROLE_ADMIN') != true %}
     <a href="{{ path('discipline_show') }}"><button>All Disciplines</button></a>
+    {% endif %}
     {% if is_granted('ROLE_ADMIN') != true %}
     <a href="{{ path('discipline_student') }}"><button>My Disciplines</button></a>
     <button>My Grades</button>
