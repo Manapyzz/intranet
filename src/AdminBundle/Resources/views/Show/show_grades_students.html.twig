@@ -19,11 +19,18 @@
                 <td>{{ mark.mark }}</td>
                 <td>{{ mark.comment }}</td>
                 <td>{{ mark.discipline.teacher.username }}</td>
-                <td><a href="{{ path("edit_grade", {'grade_id': mark.id}) }}">Edit Grade</a></td>
-                <td><a href="{{ path("delete_grade", {'grade_id': mark.id}) }}">Delete Grade</a></td>
+                <td><a href="{{ path("edit_grade", {'student_id': student.id, 'grade_id': mark.id}) }}">Edit Grade</a></td>
+                <td><a href="{{ path("delete_grade", {'student_id': student.id, 'grade_id': mark.id}) }}">Delete Grade</a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table><br>
 
+    {% if app.session.flashBag.has('success') %}
+        <div class="col-lg-2 alert-success bagSuccess">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}

@@ -24,13 +24,5 @@
     <a href="{{ path('fos_user_security_login') }}"><button>Login</button></a>
     <a href="{{ path('fos_user_registration_register') }}"><button>Register</button></a>
 {% endif %}
-
-    {% if app.session.flashBag.has('success') %}
-        <div class="col-lg-2 alert-success bagSuccess">
-            {% for msg in app.session.flashBag.get('success') %}
-                {{ msg }}
-            {% endfor %}
-        </div>
-    {% endif %}
 {% endblock %}
 

@@ -152,9 +152,9 @@ class AdminController extends Controller
     }
 
     /**
- * @Route("/marks/edit/{grade_id}", name="edit_grade")
+ * @Route("/marks/edit/{student_id}/{grade_id}", name="edit_grade")
  */
-    public function editGradeStudent($grade_id, Request $request) {
+    public function editGradeStudent($grade_id, $student_id, Request $request) {
         $em = $this->getDoctrine()->getManager();
         $existingGrade = $em->getRepository('MarksBundle:Mark')->findOneById($grade_id);
 
@@ -175,7 +175,7 @@ class AdminController extends Controller
             $em->persist($existingGrade);
             $em->flush();
 
-            return $this->redirectToRoute('admin_board');
+            return $this->redirectToRoute('admin_discipline_student_grades', ['student_id' => $student_id]);
         }
 
         return $this->render('AdminBundle:Show:editGrades.html.twig', array(
@@ -184,9 +184,9 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/marks/delete/{grade_id}", name="delete_grade")
+     * @Route("/marks/delete/{student_id}/{grade_id}", name="delete_grade")
      */
-    public function deleteGradeStudent($grade_id, Request $request) {
+    public function deleteGradeStudent($student_id, $grade_id, Request $request) {
         $em = $this->getDoctrine()->getManager();
         $existingGrade = $em->getRepository('MarksBundle:Mark')->findOneById($grade_id);
 
@@ -199,7 +199,7 @@ class AdminController extends Controller
             $em->remove($existingGrade);
             $em->flush();
 
-            return $this->redirectToRoute('admin_board');
+            return $this->redirectToRoute('admin_discipline_student_grades', ['student_id' => $student_id]);
         }
     }
 }
