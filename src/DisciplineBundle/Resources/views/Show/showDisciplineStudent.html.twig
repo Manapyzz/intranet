@@ -5,17 +5,15 @@
     <br>
     <input type="button" value="Go Back" onclick="history.back(-1)"  class="btn btn-default" />
     <br>
-    <h1>Discipline : </h1>
+    <h1>Discipline {{ discipline.name}} : </h1>
     <table class="table table-sm">
         <tbody>
         {% for users in disciplineStudent %}
             <tr>
-                <th>FirstName</th>
+                <th>Name</th>
                 <td>{{ users.username}}</td>
              </tr>
         {% endfor %}
-
-
         </tbody>
     </table><br>
 {% endblock %}
