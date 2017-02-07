@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     {% if is_granted('ROLE_SUPER_ADMIN') == true %}
-        <!-- RAJOUTER CONDITIONS POUR DISPLAY PROF/ADMIN/STUDENT-->
         <a href="{{ path('fos_user_security_logout') }}"><button>Logout</button></a>
         <a href="{{ path('admin_board_students',{'role': 'ROLE_USER'})}}"><button>Show Students</button></a>
         <a href="{{ path('admin_board_teachers',{'role': 'ROLE_ADMIN'})}}"><button>Show Teachers</button></a>

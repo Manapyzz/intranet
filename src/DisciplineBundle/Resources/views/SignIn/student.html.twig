@@ -1,13 +1,20 @@
-{{ form_start(form) }}
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <br>
+    <input type="button" value="Go Back" onclick="history.back(-1)"  class="btn btn-default" />
+    <br>
+    <br>
+
+    <div class="col-lg-2">
+    {{ form_start(form) }}
     {{ form_widget(form) }}
-
-<input type="submit" value="SignUp"
-       class="btn btn-default pull-right" />
-{{ form_end(form) }}
-
+    <input type="submit" value="SignUp" class="btn btn-default pull-right" />
+      {{ form_end(form) }}
+    </div>
 
 {% if app.session.flashBag.has('alreadyExist') %}
-    <div>
+    <div class="col-lg-2 alert-danger bagError">
         {% for msg in app.session.flashBag.get('alreadyExist') %}
             {{ msg }}
         {% endfor %}
@@ -15,9 +22,10 @@
 {% endif %}
 
 {% if app.session.flashBag.has('signUp') %}
-    <div>
+    <div class="alert alert-success bagSuccess pull-right">
         {% for msg in app.session.flashBag.get('signUp') %}
             {{ msg }}
         {% endfor %}
     </div>
 {% endif %}
+{% endblock %}
