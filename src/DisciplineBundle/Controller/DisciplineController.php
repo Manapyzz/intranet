@@ -265,8 +265,10 @@ class DisciplineController extends Controller
     public function teacherConsultOwnDisciplineStudent($id){
         $em = $this -> getDoctrine() -> getManager();
         $disciplineStudent = $em -> getRepository('DisciplineBundle:Discipline')->getTeacherDisciplineStudent($id);
+        $discipline = $em->getRepository('DisciplineBundle:Discipline')->findOneById($id);
         return $this->render('DisciplineBundle:Show:showDisciplineStudent.html.twig',array(
-            'disciplineStudent' => $disciplineStudent
+            'disciplineStudent' => $disciplineStudent,
+            'discipline' => $discipline
         ));
     }
 
